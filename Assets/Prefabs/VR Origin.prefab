@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816518776006028356}
   - component: {fileID: 816518776006028357}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Left Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,8 @@ GameObject:
   - component: {fileID: 816518776019160216}
   - component: {fileID: 816518776019160219}
   - component: {fileID: 816518776019160218}
-  m_Layer: 0
+  - component: {fileID: 7432406104359024414}
+  m_Layer: 13
   m_Name: VR Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,6 +203,20 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!136 &7432406104359024414
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816518776019160212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.190137
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.59506845, z: 0}
 --- !u!1 &816518776679618264
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816518776679618265}
   - component: {fileID: 816518776679618270}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Right Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 816518776808241671}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Camera Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816518777229252614}
   - component: {fileID: 816518777229252615}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: VR Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
