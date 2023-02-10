@@ -114,4 +114,8 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+
+    // idk cool quote
+    //As a Hunter, the scariest sound isn’t one you know well, it’s a sound you’ve never heard before.
+    //Why? Because that means something you’ve never seen before is out there with you, and heaven forbid it finds you.
 }
