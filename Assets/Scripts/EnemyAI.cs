@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
 
     public float health;
 
+    public Animator anim;
+
     // Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -44,6 +46,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Patroling()
     {
+        setAnim("run");
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -70,11 +74,15 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        setAnim("run");
+
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
+        setAnim("attack");
+
         // make sure enemy doesn't move
         agent.SetDestination(transform.position);
 
@@ -105,6 +113,14 @@ public class EnemyAI : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    private void setAnim(string name)
+    {
+        anim.SetBool("attack", false);
+        anim.SetBool("run", false);
+
+        anim.SetBool(name, true);
     }
 
     private void OnDrawGizmosSelected()

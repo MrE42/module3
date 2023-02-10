@@ -2185,7 +2185,7 @@ PrefabInstance:
     - target: {fileID: 816518776006028359, guid: be201e9494ccf824c9bb9c9aa4708741,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 816518776019160212, guid: be201e9494ccf824c9bb9c9aa4708741,
         type: 3}
@@ -2195,7 +2195,7 @@ PrefabInstance:
     - target: {fileID: 816518776679618264, guid: be201e9494ccf824c9bb9c9aa4708741,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 816518776808241670, guid: be201e9494ccf824c9bb9c9aa4708741,
         type: 3}
@@ -2342,6 +2342,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   health: 100
+  anim: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 0.5
@@ -2406,6 +2407,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   health: 0
+  anim: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   timeBetweenAttacks: 0
@@ -2978,7 +2980,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196362286476860281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -24.91}
+  m_LocalPosition: {x: 0, y: 0, z: -44.314}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3110,7 +3112,7 @@ GameObject:
   - component: {fileID: 2814769816422367683}
   - component: {fileID: 3196362286476860282}
   - component: {fileID: 3196362286476860284}
-  - component: {fileID: 3196362286476860283}
+  - component: {fileID: 3196362286476860285}
   m_Layer: 0
   m_Name: wendigo-face-forward2
   m_TagString: Untagged
@@ -3138,34 +3140,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3196362286476860283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3196362286476860281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f35a126a5d2fa44867995cff43dfbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 919132148947730973}
-  player: {fileID: 1478262869}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 4096
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  health: 100
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 50
-  timeBetweenAttacks: 0.5
-  sightRange: 48.73
-  attackRange: 1.84
-  playerInSightRange: 0
-  playerInAttackRange: 0
 --- !u!195 &3196362286476860284
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3176,7 +3150,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.13
-  m_Speed: 20
+  m_Speed: 7
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 300
@@ -3188,6 +3162,35 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3196362286476860285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196362286476860281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb2c8b926294ef4ca8accdef87796c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 3196362286476860284}
+  player: {fileID: 1478262869}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 4096
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  health: 100
+  anim: {fileID: 3196362286476860282}
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 50
+  timeBetweenAttacks: 0.5
+  sightRange: 48.73
+  attackRange: 2.44
+  playerInSightRange: 0
+  playerInAttackRange: 0
 --- !u!4 &3225609770028663478
 Transform:
   m_ObjectHideFlags: 0
