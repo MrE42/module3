@@ -13,6 +13,14 @@ public class Wendigo : MonoBehaviour
 
     public float health;
 
+    public Animator anim;
+
+    // Stalking
+    public bool isStalking;
+    public float stalkRunAway;
+    public float timeBetweenTeleport;
+    public float stalkDistance;
+
     // Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -37,13 +45,36 @@ public class Wendigo : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (isStalking)
+        {
+            // choose random spot x distance away from player and idle <teleport>
+            var playerPos = player.position;
+            float randomZ = Random.Range(playerPos.z + stalkDistance, playerPos.z + stalkDistance + stalkDistance);
+            float randomX = Random.Range(playerPos.x + stalkDistance, playerPos.x + stalkDistance + stalkDistance);
+            // set randomx/y sign, and * by randzomx/z : random(0,1) * 2 - 1
+            agent.Warp(new Vector3(randomX, transform.position.y, randomZ));
+            isStalking = false;
+            Debug.Log("warped to: " + randomX + randomZ);
+
+            // if player gets within stalkRange, choose a point away from player
+
+            // run away from player
+        }
+
+        else
+        {
+            if (!playerInSightRange && !playerInAttackRange) Patroling();
+            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+            if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        }
+
+        
     }
 
     private void Patroling()
     {
+        setAnim("run");
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -70,11 +101,15 @@ public class Wendigo : MonoBehaviour
 
     private void ChasePlayer()
     {
+        setAnim("run");
+
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
+        setAnim("attack");
+
         // make sure enemy doesn't move
         agent.SetDestination(transform.position);
 
@@ -107,12 +142,22 @@ public class Wendigo : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void setAnim(string name)
+    {
+        anim.SetBool("attack", false);
+        anim.SetBool("run", false);
+
+        anim.SetBool(name, true);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, stalkRunAway);
     }
 
     // idk cool quote
