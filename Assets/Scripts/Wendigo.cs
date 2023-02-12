@@ -16,7 +16,7 @@ public class Wendigo : MonoBehaviour
     public Animator anim;
 
     // Stalking
-    public bool isStalking;
+    public bool isStalking, isReadyToTeleport = true;
     public float stalkRunAway;
     public float timeBetweenTeleport;
     public float stalkDistance;
@@ -47,18 +47,41 @@ public class Wendigo : MonoBehaviour
 
         if (isStalking)
         {
-            // choose random spot x distance away from player and idle <teleport>
-            var playerPos = player.position;
-            float randomZ = Random.Range(playerPos.z + stalkDistance, playerPos.z + stalkDistance + stalkDistance);
-            float randomX = Random.Range(playerPos.x + stalkDistance, playerPos.x + stalkDistance + stalkDistance);
-            // set randomx/y sign, and * by randzomx/z : random(0,1) * 2 - 1
-            agent.Warp(new Vector3(randomX, transform.position.y, randomZ));
-            isStalking = false;
-            Debug.Log("warped to: " + randomX + randomZ);
+            setAnim("idle");
 
-            // if player gets within stalkRange, choose a point away from player
+            // continuously look at player and do not accoutn for x axis
+            //var rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            //rotation.y = 0;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
+            transform.LookAt(player);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
 
-            // run away from player
+            if (isReadyToTeleport)
+            {
+                // handle bools
+                isReadyToTeleport = false;
+
+                // choose random spot x distance away from player and idle <teleport>
+                var playerPos = player.position;
+                float randomZ = Random.Range(playerPos.z + stalkDistance, playerPos.z + stalkDistance + Random.Range(0, stalkDistance));
+                float randomX = Random.Range(playerPos.x + stalkDistance, playerPos.x + stalkDistance + Random.Range(0, stalkDistance));
+
+                // used to flip x/z in a possible negative dir
+                float flipX = Random.Range(0,2) * 2 - 1;
+                float flipZ = Random.Range(0,2) * 2 - 1;
+
+                agent.Warp(new Vector3(randomX * flipX, transform.position.y, randomZ * flipZ));
+
+                //Debug.Log("warped to: " + randomX + randomZ);
+
+                // if player gets within stalkRange, choose a point away from player
+                // ***need to CacnelInvoke(); here
+
+                // run away from player
+
+                // reset teleport time if not running away
+                Invoke(nameof(ResetTeleport), timeBetweenTeleport);
+            }
         }
 
         else
@@ -69,6 +92,11 @@ public class Wendigo : MonoBehaviour
         }
 
         
+    }
+
+    void ResetTeleport()
+    {
+        isReadyToTeleport = true;
     }
 
     private void Patroling()
@@ -146,6 +174,7 @@ public class Wendigo : MonoBehaviour
     {
         anim.SetBool("attack", false);
         anim.SetBool("run", false);
+        anim.SetBool("idle", false);
 
         anim.SetBool(name, true);
     }
@@ -161,6 +190,6 @@ public class Wendigo : MonoBehaviour
     }
 
     // idk cool quote
-    //As a Hunter, the scariest sound isn’t one you know well, it’s a sound you’ve never heard before.
-    //Why? Because that means something you’ve never seen before is out there with you, and heaven forbid it finds you.
+    //As a Hunter, the scariest sound isnï¿½t one you know well, itï¿½s a sound youï¿½ve never heard before.
+    //Why? Because that means something youï¿½ve never seen before is out there with you, and heaven forbid it finds you.
 }
