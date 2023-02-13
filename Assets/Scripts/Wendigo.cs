@@ -16,10 +16,11 @@ public class Wendigo : MonoBehaviour
     public Animator anim;
 
     // Stalking
-    public bool isStalking, isReadyToTeleport = true;
+    public bool isStalking, isRunningAway, isReadyToTeleport = true;
     public float stalkRunAway;
     public float timeBetweenTeleport;
     public float stalkDistance;
+    public Vector3 runTo;
 
     // Patroling
     public Vector3 walkPoint;
@@ -32,7 +33,7 @@ public class Wendigo : MonoBehaviour
 
     // States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public bool playerInSightRange, playerInAttackRange, playerInRunAwayRange;
 
     private void Awake()
     {
@@ -44,45 +45,10 @@ public class Wendigo : MonoBehaviour
         // check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInRunAwayRange = Physics.CheckSphere(transform.position, stalkRunAway, whatIsPlayer);
 
-        if (isStalking)
-        {
-            setAnim("idle");
-
-            // continuously look at player and do not accoutn for x axis
-            //var rotation = Quaternion.LookRotation(player.transform.position - transform.position);
-            //rotation.y = 0;
-            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
-            transform.LookAt(player);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-
-            if (isReadyToTeleport)
-            {
-                // handle bools
-                isReadyToTeleport = false;
-
-                // choose random spot x distance away from player and idle <teleport>
-                var playerPos = player.position;
-                float randomZ = Random.Range(playerPos.z + stalkDistance, playerPos.z + stalkDistance + Random.Range(0, stalkDistance));
-                float randomX = Random.Range(playerPos.x + stalkDistance, playerPos.x + stalkDistance + Random.Range(0, stalkDistance));
-
-                // used to flip x/z in a possible negative dir
-                float flipX = Random.Range(0,2) * 2 - 1;
-                float flipZ = Random.Range(0,2) * 2 - 1;
-
-                agent.Warp(new Vector3(randomX * flipX, transform.position.y, randomZ * flipZ));
-
-                //Debug.Log("warped to: " + randomX + randomZ);
-
-                // if player gets within stalkRange, choose a point away from player
-                // ***need to CacnelInvoke(); here
-
-                // run away from player
-
-                // reset teleport time if not running away
-                Invoke(nameof(ResetTeleport), timeBetweenTeleport);
-            }
-        }
+        // stalk player before messing with them
+        if (isStalking) Stalking();
 
         else
         {
@@ -94,7 +60,84 @@ public class Wendigo : MonoBehaviour
         
     }
 
-    void ResetTeleport()
+    private void Stalking()
+    {
+        if (!isRunningAway)
+        {
+            setAnim("idle");
+
+            // continuously look at player and do not accoutn for x axis
+            //var rotation = Quaternion.LookRotation(player.transform.position - transform.position);
+            //rotation.y = 0;
+            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
+            transform.LookAt(player);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+        }
+
+        if (isReadyToTeleport && !isRunningAway)
+        {
+            // handle bools
+            isReadyToTeleport = false;
+
+            // choose random spot x distance away from player and idle <teleport>
+            var playerPos = player.position;
+            float randomZ = Random.Range(playerPos.z + stalkDistance, playerPos.z + stalkDistance + Random.Range(0, stalkDistance));
+            float randomX = Random.Range(playerPos.x + stalkDistance, playerPos.x + stalkDistance + Random.Range(0, stalkDistance));
+
+            // used to flip x/z in a possible negative dir
+            float flipX = Random.Range(0,2) * 2 - 1;
+            float flipZ = Random.Range(0,2) * 2 - 1;
+
+            agent.Warp(new Vector3(randomX * flipX, transform.position.y, randomZ * flipZ));
+
+            //Debug.Log("warped to: " + randomX + randomZ);
+
+            // reset teleport time if not running away
+            Invoke(nameof(ResetTeleport), timeBetweenTeleport);
+        }
+
+        // if player gets within stalkRange, choose a point away from player
+        if (playerInRunAwayRange && !isRunningAway)
+        {
+            CancelInvoke();  // need to cancel invoke so it doesn't tp away while running
+            setAnim("run");
+
+            // tell rest of code it is running away now
+            isRunningAway = true;
+
+            // run away from player
+            transform.rotation = Quaternion.LookRotation(transform.position - player.position); // later add some variablilty?
+            
+            // calculate line to run towards
+            runTo = transform.position + transform.forward * 40f;
+            Debug.Log("running to: " + runTo);
+
+            // move ai to pos
+            agent.SetDestination(runTo);
+        }  
+
+        // check if agent has reached mesh
+        if (isRunningAway)
+        {
+            var x_dist = Mathf.Abs(transform.position.x - runTo.x);
+            var z_dist = Mathf.Abs(transform.position.x - runTo.x);
+
+            Debug.Log("x: " + x_dist);
+            Debug.Log("z: " + z_dist); 
+
+            if (x_dist < 0.05f && z_dist < 0.05f)
+            {
+                isRunningAway = false;
+
+                // teleport to new location
+                isReadyToTeleport = true;
+            }
+        }
+
+            
+    }
+
+    private void ResetTeleport()
     {
         isReadyToTeleport = true;
     }
