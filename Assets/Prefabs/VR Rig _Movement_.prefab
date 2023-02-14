@@ -354,8 +354,8 @@ Transform:
   - {fileID: 2750481333062579937}
   - {fileID: 2750481332800663679}
   - {fileID: 2750481332931624734}
-  - {fileID: 2750481334170137198}
   - {fileID: 2750481332934253910}
+  - {fileID: 2750481334170137198}
   - {fileID: 8733107122171532744}
   - {fileID: 7842556153773769022}
   m_Father: {fileID: 2750481333467945372}
@@ -719,7 +719,7 @@ Transform:
   m_Children:
   - {fileID: 2750481333621206387}
   m_Father: {fileID: 2750481332858078911}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2750481332934253917
 MonoBehaviour:
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_HitClosestOnly: 0
   m_HoverToSelect: 0
   m_HoverTimeToSelect: 0.5
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_AllowAnchorControl: 1
   m_UseForceGrab: 1
   m_RotateSpeed: 180
@@ -1745,6 +1745,8 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 0}
+  leftRay: {fileID: 3167256606514151993}
+  rightRay: {fileID: 7563319537953953693}
 --- !u!114 &4940054719701247138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,7 +1964,7 @@ Transform:
   m_Children:
   - {fileID: 2750481333766870635}
   m_Father: {fileID: 2750481332858078911}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2750481334170137205
 MonoBehaviour:
@@ -2262,7 +2264,7 @@ MonoBehaviour:
   m_HitClosestOnly: 0
   m_HoverToSelect: 0
   m_HoverTimeToSelect: 0.5
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_AllowAnchorControl: 1
   m_UseForceGrab: 1
   m_RotateSpeed: 180
