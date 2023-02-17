@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class Wendigo : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class Wendigo : MonoBehaviour
     public float timeBetweenTeleport;
     public float stalkDistance;
     public Vector3 runTo;
+    public GameObject spawnpointParent;
+    public GameObject retreatpointParent;
+    private Transform[] spawnpoints;
+    private Transform[] retreatpoints;
 
     // Patroling
     public Vector3 walkPoint;
@@ -38,6 +43,12 @@ public class Wendigo : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        spawnpoints = spawnpointParent.GetComponentsInChildren<Transform>();
+        retreatpoints = retreatpointParent.GetComponentsInChildren<Transform>();
+
+        // remove parent GO from list positioned at 0,0,0
+        spawnpoints = spawnpoints.Skip(1).ToArray();
+        retreatpoints = retreatpoints.Skip(1).ToArray();
     }
 
     private void Update()
@@ -88,9 +99,43 @@ public class Wendigo : MonoBehaviour
             float flipX = Random.Range(0,2) * 2 - 1;
             float flipZ = Random.Range(0,2) * 2 - 1;
 
-            agent.Warp(new Vector3(randomX * flipX, transform.position.y, randomZ * flipZ));
+            var optimalSpot = new Vector3(randomX * flipX, transform.position.y, randomZ * flipZ);
 
-            //Debug.Log("warped to: " + randomX + randomZ);
+            //Debug.Log("warped to x: " + randomX);
+            //Debug.Log("warped to z: " + randomZ);
+
+            // check each spawnpoint available on map, compare to plr distance. Pick closest one to player at least 50 distance away
+            Transform optimalSpawnpoint = null;
+            float bestDistance = 999999;
+
+            foreach (Transform spawnpoint in spawnpoints)
+            {
+                var dist = Vector3.Distance(playerPos, spawnpoint.position);
+
+                if (optimalSpawnpoint == null)
+                    optimalSpawnpoint = spawnpoint;
+                
+                else if (dist < bestDistance && dist > 50f )  // must stay at least 50 units away from plr
+                {
+                    optimalSpawnpoint = spawnpoint;
+                    bestDistance = dist;
+                }
+
+                Debug.Log("spawnpoint found at: " + spawnpoint.position + "distance: " + dist);
+            }
+
+            foreach (Transform rtpoint in retreatpoints)
+            {
+                Debug.Log("rtpoint found at: " + rtpoint.position);
+            }
+            
+            // WARP TO BEST SPAWNPOINT -> 
+            agent.Warp(optimalSpawnpoint.position);
+            
+
+
+            Debug.Log("plr pos: " + player.position);
+
 
             // reset teleport time if not running away
             Invoke(nameof(ResetTeleport), timeBetweenTeleport);
@@ -110,7 +155,7 @@ public class Wendigo : MonoBehaviour
             
             // calculate line to run towards
             runTo = transform.position + transform.forward * 40f;
-            Debug.Log("running to: " + runTo);
+            //Debug.Log("running to: " + runTo);
 
             // move ai to pos
             agent.SetDestination(runTo);
@@ -122,8 +167,8 @@ public class Wendigo : MonoBehaviour
             var x_dist = Mathf.Abs(transform.position.x - runTo.x);
             var z_dist = Mathf.Abs(transform.position.x - runTo.x);
 
-            Debug.Log("x: " + x_dist);
-            Debug.Log("z: " + z_dist); 
+            //Debug.Log("x: " + x_dist);
+            //Debug.Log("z: " + z_dist); 
 
             if (x_dist < 0.05f && z_dist < 0.05f)
             {
