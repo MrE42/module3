@@ -26,6 +26,7 @@ public class Wendigo : MonoBehaviour
     public GameObject retreatpointParent;
     private Transform[] spawnpoints;
     private Transform[] retreatpoints;
+    Transform optimalRetreat; // expose for dist checks later
 
     // Patroling
     public Vector3 walkPoint;
@@ -35,6 +36,7 @@ public class Wendigo : MonoBehaviour
     // Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public PlayerManager playerManager;
 
     // States
     public float sightRange, attackRange;
@@ -121,12 +123,12 @@ public class Wendigo : MonoBehaviour
                     bestDistance = dist;
                 }
 
-                Debug.Log("spawnpoint found at: " + spawnpoint.position + "distance: " + dist);
+                //Debug.Log("spawnpoint found at: " + spawnpoint.position + "distance: " + dist);
             }
 
             foreach (Transform rtpoint in retreatpoints)
             {
-                Debug.Log("rtpoint found at: " + rtpoint.position);
+                //Debug.Log("rtpoint found at: " + rtpoint.position);
             }
             
             // WARP TO BEST SPAWNPOINT -> 
@@ -134,7 +136,7 @@ public class Wendigo : MonoBehaviour
             
 
 
-            Debug.Log("plr pos: " + player.position);
+            //Debug.Log("plr pos: " + player.position);
 
 
             // reset teleport time if not running away
@@ -157,15 +159,33 @@ public class Wendigo : MonoBehaviour
             runTo = transform.position + transform.forward * 40f;
             //Debug.Log("running to: " + runTo);
 
+            // runto is point furthest from player, find run to point closest to runto var
+            optimalRetreat = null;
+            float bestDistance = 999999;
+
+            foreach (Transform rtpoint in retreatpoints)
+            {
+                var dist = Vector3.Distance(runTo, rtpoint.position);
+
+                if (optimalRetreat == null)
+                    optimalRetreat = rtpoint;
+                
+                else if (dist < bestDistance)  
+                {
+                    optimalRetreat = rtpoint;
+                    bestDistance = dist;
+                }
+            }
+
             // move ai to pos
-            agent.SetDestination(runTo);
+            agent.SetDestination(optimalRetreat.position);
         }  
 
         // check if agent has reached mesh
         if (isRunningAway)
         {
-            var x_dist = Mathf.Abs(transform.position.x - runTo.x);
-            var z_dist = Mathf.Abs(transform.position.x - runTo.x);
+            var x_dist = Mathf.Abs(transform.position.x - optimalRetreat.position.x);
+            var z_dist = Mathf.Abs(transform.position.x - optimalRetreat.position.x);
 
             //Debug.Log("x: " + x_dist);
             //Debug.Log("z: " + z_dist); 
@@ -234,11 +254,16 @@ public class Wendigo : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            // attack code here
-
+            // attack code here (actually its now in deal damage called by anim event :P)
+            
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+    }
+
+    private void DealDamage()
+    {
+        playerManager.TakeDamage(10);
     }
 
     private void ResetAttack()

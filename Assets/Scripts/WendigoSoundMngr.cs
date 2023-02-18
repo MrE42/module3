@@ -7,13 +7,15 @@ public class WendigoSoundMngr : MonoBehaviour
     public List<AudioClip> audioClips;
     public AudioClip currentClip;
     public AudioSource source;
+    public AudioSource footsteps_source;
     public float minWaitBetweenPlays = 1f;
     public float maxWaitBetweenPlays = 5f;
     public float waitTimeCountdown = 120f;
     
+    
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        //source = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -32,5 +34,10 @@ public class WendigoSoundMngr : MonoBehaviour
                 waitTimeCountdown -= Time.deltaTime;
             }
         }
+    }
+
+    private void PlayFootstepSound()
+    {
+        footsteps_source.Play();
     }
 }
