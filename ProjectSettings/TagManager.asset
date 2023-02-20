@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Left Hand
   - Right Hand
+  - Gun
+  - Blue
+  - Red
+  - Orange
+  - Green
+  - Yellow
   layers:
   - Default
   - TransparentFX
