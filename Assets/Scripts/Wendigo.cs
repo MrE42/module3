@@ -42,6 +42,7 @@ public class Wendigo : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange, playerInRunAwayRange;
 
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -61,7 +62,9 @@ public class Wendigo : MonoBehaviour
         playerInRunAwayRange = Physics.CheckSphere(transform.position, stalkRunAway, whatIsPlayer);
 
         // stalk player before messing with them
-        if (isStalking) Stalking();
+        if (isStalking) Stalking(true);
+
+        // set is stalking to false whne found 2/5 parts
 
         else
         {
@@ -73,7 +76,7 @@ public class Wendigo : MonoBehaviour
         
     }
 
-    private void Stalking()
+    private void Stalking(bool comingFromMain)
     {
         if (!isRunningAway)
         {
@@ -87,7 +90,7 @@ public class Wendigo : MonoBehaviour
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
         }
 
-        if (isReadyToTeleport && !isRunningAway)
+        if (isReadyToTeleport && !isRunningAway && comingFromMain)
         {
             // handle bools
             isReadyToTeleport = false;
@@ -125,19 +128,11 @@ public class Wendigo : MonoBehaviour
 
                 //Debug.Log("spawnpoint found at: " + spawnpoint.position + "distance: " + dist);
             }
-
-            foreach (Transform rtpoint in retreatpoints)
-            {
-                //Debug.Log("rtpoint found at: " + rtpoint.position);
-            }
             
             // WARP TO BEST SPAWNPOINT -> 
             agent.Warp(optimalSpawnpoint.position);
-            
-
 
             //Debug.Log("plr pos: " + player.position);
-
 
             // reset teleport time if not running away
             Invoke(nameof(ResetTeleport), timeBetweenTeleport);
@@ -209,6 +204,7 @@ public class Wendigo : MonoBehaviour
 
     private void Patroling()
     {
+        Debug.Log("patroling");
         setAnim("run");
 
         if (!walkPointSet) SearchWalkPoint();
@@ -216,7 +212,13 @@ public class Wendigo : MonoBehaviour
         if (walkPointSet)
             agent.SetDestination(walkPoint);
 
+        Debug.Log("going to: " + walkPoint);
+
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        distanceToWalkPoint.y = 0;
+
+        Debug.Log("distance is: " + distanceToWalkPoint);
+        Debug.Log("magnitude is: " + distanceToWalkPoint.magnitude);
 
         // walkpoint reached
         if (distanceToWalkPoint.magnitude < 1f)
@@ -269,6 +271,9 @@ public class Wendigo : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+
+        // run away after dealing damage
+        Stalking(false);
     }
 
     public void TakeDamage(int damage)

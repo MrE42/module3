@@ -12404,7 +12404,7 @@ MonoBehaviour:
     m_Bits: 8192
   health: 100
   anim: {fileID: 1148935547}
-  isStalking: 1
+  isStalking: 0
   isRunningAway: 0
   isReadyToTeleport: 1
   stalkRunAway: 45
