@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class FuseChecker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    public List<XRSocketInteractor> interactors = new List<XRSocketInteractor>();
+
+    public int fusesInserted = 0;
+    public bool killable = false;
 
     // Update is called once per frame
     void Update()
     {
-        
+        for (int i = 0; i < interactors.Count; i++)
+        {
+            if (interactors[i].hasSelection)
+            {
+                fusesInserted++;
+            }
+        }
+        if (fusesInserted == 5)
+        {
+            killable = true;
+        }
     }
 }
