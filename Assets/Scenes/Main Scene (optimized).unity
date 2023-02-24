@@ -1462,46 +1462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1930616842}
   m_Colliders:
-  - {fileID: 969658484}
-  - {fileID: 994389004}
-  - {fileID: 212158664}
-  - {fileID: 339420098}
-  - {fileID: 1014488953}
-  - {fileID: 340025964}
-  - {fileID: 1417252864}
-  - {fileID: 1637433272}
-  - {fileID: 2113584163}
-  - {fileID: 678236675}
-  - {fileID: 2048518532}
-  - {fileID: 295812045}
-  - {fileID: 319347030}
-  - {fileID: 1152565908}
-  - {fileID: 139228160}
-  - {fileID: 296903479}
-  - {fileID: 328765104}
-  - {fileID: 1163999849}
-  - {fileID: 1145808282}
-  - {fileID: 189869889}
-  - {fileID: 1462772728}
-  - {fileID: 1313471580}
-  - {fileID: 1642452485}
-  - {fileID: 1415650198}
-  - {fileID: 135413317}
-  - {fileID: 1713972546}
-  - {fileID: 88477439}
-  - {fileID: 2004188000}
-  - {fileID: 1162179094}
-  - {fileID: 1244997412}
-  - {fileID: 1121321721}
-  - {fileID: 2052660083}
-  - {fileID: 639970117}
-  - {fileID: 1612517067}
-  - {fileID: 1589428590}
-  - {fileID: 1678181604}
-  - {fileID: 1128310752}
-  - {fileID: 771883963}
-  - {fileID: 96991432}
-  - {fileID: 1190933409}
+  - {fileID: 99949195}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2922,46 +2883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1930616842}
   m_Colliders:
-  - {fileID: 969658484}
-  - {fileID: 994389004}
-  - {fileID: 212158664}
-  - {fileID: 339420098}
-  - {fileID: 1014488953}
-  - {fileID: 340025964}
-  - {fileID: 1417252864}
-  - {fileID: 1637433272}
-  - {fileID: 2113584163}
-  - {fileID: 678236675}
-  - {fileID: 2048518532}
-  - {fileID: 295812045}
-  - {fileID: 319347030}
-  - {fileID: 1152565908}
-  - {fileID: 139228160}
-  - {fileID: 296903479}
-  - {fileID: 328765104}
-  - {fileID: 1163999849}
-  - {fileID: 1145808282}
-  - {fileID: 189869889}
-  - {fileID: 1462772728}
-  - {fileID: 1313471580}
-  - {fileID: 1642452485}
-  - {fileID: 1415650198}
-  - {fileID: 135413317}
-  - {fileID: 1713972546}
-  - {fileID: 88477439}
-  - {fileID: 2004188000}
-  - {fileID: 1162179094}
-  - {fileID: 1244997412}
-  - {fileID: 1121321721}
-  - {fileID: 2052660083}
-  - {fileID: 639970117}
-  - {fileID: 1612517067}
-  - {fileID: 1589428590}
-  - {fileID: 1678181604}
-  - {fileID: 1128310752}
-  - {fileID: 771883963}
-  - {fileID: 96991432}
-  - {fileID: 1190933409}
+  - {fileID: 229809864}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5021,46 +4943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1930616842}
   m_Colliders:
-  - {fileID: 969658484}
-  - {fileID: 994389004}
-  - {fileID: 212158664}
-  - {fileID: 339420098}
-  - {fileID: 1014488953}
-  - {fileID: 340025964}
-  - {fileID: 1417252864}
-  - {fileID: 1637433272}
-  - {fileID: 2113584163}
-  - {fileID: 678236675}
-  - {fileID: 2048518532}
-  - {fileID: 295812045}
-  - {fileID: 319347030}
-  - {fileID: 1152565908}
-  - {fileID: 139228160}
-  - {fileID: 296903479}
-  - {fileID: 328765104}
-  - {fileID: 1163999849}
-  - {fileID: 1145808282}
-  - {fileID: 189869889}
-  - {fileID: 1462772728}
-  - {fileID: 1313471580}
-  - {fileID: 1642452485}
-  - {fileID: 1415650198}
-  - {fileID: 135413317}
-  - {fileID: 1713972546}
-  - {fileID: 88477439}
-  - {fileID: 2004188000}
-  - {fileID: 1162179094}
-  - {fileID: 1244997412}
-  - {fileID: 1121321721}
-  - {fileID: 2052660083}
-  - {fileID: 639970117}
-  - {fileID: 1612517067}
-  - {fileID: 1589428590}
-  - {fileID: 1678181604}
-  - {fileID: 1128310752}
-  - {fileID: 771883963}
-  - {fileID: 96991432}
-  - {fileID: 1190933409}
+  - {fileID: 387791101}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -10354,46 +10237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1930616842}
   m_Colliders:
-  - {fileID: 969658484}
-  - {fileID: 994389004}
-  - {fileID: 212158664}
-  - {fileID: 339420098}
-  - {fileID: 1014488953}
-  - {fileID: 340025964}
-  - {fileID: 1417252864}
-  - {fileID: 1637433272}
-  - {fileID: 2113584163}
-  - {fileID: 678236675}
-  - {fileID: 2048518532}
-  - {fileID: 295812045}
-  - {fileID: 319347030}
-  - {fileID: 1152565908}
-  - {fileID: 139228160}
-  - {fileID: 296903479}
-  - {fileID: 328765104}
-  - {fileID: 1163999849}
-  - {fileID: 1145808282}
-  - {fileID: 189869889}
-  - {fileID: 1462772728}
-  - {fileID: 1313471580}
-  - {fileID: 1642452485}
-  - {fileID: 1415650198}
-  - {fileID: 135413317}
-  - {fileID: 1713972546}
-  - {fileID: 88477439}
-  - {fileID: 2004188000}
-  - {fileID: 1162179094}
-  - {fileID: 1244997412}
-  - {fileID: 1121321721}
-  - {fileID: 2052660083}
-  - {fileID: 639970117}
-  - {fileID: 1612517067}
-  - {fileID: 1589428590}
-  - {fileID: 1678181604}
-  - {fileID: 1128310752}
-  - {fileID: 771883963}
-  - {fileID: 96991432}
-  - {fileID: 1190933409}
+  - {fileID: 974216292}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
