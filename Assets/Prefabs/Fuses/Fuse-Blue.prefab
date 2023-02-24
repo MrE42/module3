@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5182173723812976069}
   - component: {fileID: 5182173723812976068}
   - component: {fileID: 5182173723812976067}
+  - component: {fileID: 5182173723812976064}
   - component: {fileID: 5182173723812976066}
   - component: {fileID: 5182173723812976065}
-  - component: {fileID: 5182173723812976064}
   m_Layer: 7
   m_Name: Fuse-Blue
   m_TagString: Blue
@@ -87,6 +87,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5182173723812976064
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5182173723812976095}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.019418508, y: 0.018697493, z: 0.0050614434}
+  m_Center: {x: -0.000000003259629, y: -0.0025490902, z: 0.000029757615}
 --- !u!54 &5182173723812976066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -121,7 +134,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 12
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -228,16 +241,3 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!65 &5182173723812976064
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5182173723812976095}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.019418508, y: 0.018697493, z: 0.0050614434}
-  m_Center: {x: -0.000000003259629, y: -0.0025490902, z: 0.000029757615}

@@ -14,6 +14,7 @@ public class FuseChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fusesInserted = 0;
         for (int i = 0; i < interactors.Count; i++)
         {
             if (interactors[i].hasSelection)
@@ -24,6 +25,9 @@ public class FuseChecker : MonoBehaviour
         if (fusesInserted == 5)
         {
             killable = true;
+        } else
+        {
+            killable = false;
         }
     }
 }
