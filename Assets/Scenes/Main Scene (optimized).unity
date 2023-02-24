@@ -11143,6 +11143,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Anti_-_Tank_Bullet_[Sci-fi_edition]
       objectReference: {fileID: 0}
+    - target: {fileID: 836310144979818133, guid: b782d2373217bc5488409fccd1fec7bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bullet
+      objectReference: {fileID: 0}
     - target: {fileID: 6770545199790458822, guid: b782d2373217bc5488409fccd1fec7bc,
         type: 3}
       propertyPath: m_RootOrder
@@ -12570,6 +12575,7 @@ GameObject:
   - component: {fileID: 1148935550}
   - component: {fileID: 1148935549}
   - component: {fileID: 1148935551}
+  - component: {fileID: 1148935552}
   m_Layer: 0
   m_Name: wendigo-face-forward2
   m_TagString: Untagged
@@ -12895,6 +12901,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1148935552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148935544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d1596460bc0814d94f6082e7dbf7af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletTag: Bullet
 --- !u!1 &1152565906
 GameObject:
   m_ObjectHideFlags: 0
@@ -16823,6 +16842,11 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 1023100146}
+    - target: {fileID: 7470034599894546403, guid: a4e476a037022df448ead5d0ceea7d06,
+        type: 3}
+      propertyPath: killable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4e476a037022df448ead5d0ceea7d06, type: 3}
 --- !u!1 &1612517065

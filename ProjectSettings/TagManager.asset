@@ -12,6 +12,7 @@ TagManager:
   - Orange
   - Green
   - Yellow
+  - Bullet
   layers:
   - Default
   - TransparentFX
