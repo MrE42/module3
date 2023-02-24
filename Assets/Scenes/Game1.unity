@@ -2412,11 +2412,21 @@ PrefabInstance:
       propertyPath: continuousTurn
       value: 
       objectReference: {fileID: 2750481333445871462}
+    - target: {fileID: 7288891434411751183, guid: aa9228d8a61117c4cb7ca03add5a9b67,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7288891434411751187, guid: aa9228d8a61117c4cb7ca03add5a9b67,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2750481333445871465}
+    - target: {fileID: 7288891434436030351, guid: aa9228d8a61117c4cb7ca03add5a9b67,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7288891434491820244, guid: aa9228d8a61117c4cb7ca03add5a9b67,
         type: 3}
       propertyPath: head
@@ -2480,6 +2490,11 @@ PrefabInstance:
     - target: {fileID: 7288891434491820247, guid: aa9228d8a61117c4cb7ca03add5a9b67,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288891435061757506, guid: aa9228d8a61117c4cb7ca03add5a9b67,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
