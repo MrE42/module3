@@ -59,7 +59,10 @@ public class Wendigo : MonoBehaviour
 
     private void Update()
     {
-        fuses = fc.fusesInserted;
+        if (fc.fusesInserted > fuses)
+        {
+            fuses = fc.fusesInserted;
+        }
         // check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
