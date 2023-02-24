@@ -6,6 +6,9 @@ using System.Linq;
 
 public class Wendigo : MonoBehaviour
 {
+    public FuseChecker fc;
+    public int fuses = 0;
+    
     public NavMeshAgent agent;
 
     public Transform player;
@@ -56,6 +59,7 @@ public class Wendigo : MonoBehaviour
 
     private void Update()
     {
+        fuses = fc.fusesInserted;
         // check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -64,7 +68,11 @@ public class Wendigo : MonoBehaviour
         // stalk player before messing with them
         if (isStalking) Stalking(true);
 
-        // set is stalking to false whne found 2/5 parts
+        // set is stalking to false when found 2/5 parts
+        if (fuses >= 2)
+        {
+            isStalking = false;
+        }
 
         else
         {

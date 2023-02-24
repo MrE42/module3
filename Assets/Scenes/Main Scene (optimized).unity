@@ -12595,6 +12595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb2c8b926294ef4ca8accdef87796c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fc: {fileID: 1593427249}
+  fuses: 0
   agent: {fileID: 1148935546}
   player: {fileID: 1930616840}
   whatIsGround:
@@ -12605,7 +12607,7 @@ MonoBehaviour:
     m_Bits: 8192
   health: 100
   anim: {fileID: 1148935547}
-  isStalking: 0
+  isStalking: 1
   isRunningAway: 0
   isReadyToTeleport: 1
   stalkRunAway: 45
@@ -16849,6 +16851,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4e476a037022df448ead5d0ceea7d06, type: 3}
+--- !u!114 &1593427249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7470034599894546403, guid: a4e476a037022df448ead5d0ceea7d06,
+    type: 3}
+  m_PrefabInstance: {fileID: 1593427248}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043c5ff7f46147143894ae002367098b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1612517065
 GameObject:
   m_ObjectHideFlags: 0
