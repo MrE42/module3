@@ -18,6 +18,7 @@ public class Wendigo : MonoBehaviour
     public float health;
 
     public Animator anim;
+    bool foundFuses = false;
 
     // Stalking
     public bool isStalking, isRunningAway, isReadyToTeleport = true;
@@ -40,6 +41,8 @@ public class Wendigo : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public PlayerManager playerManager;
+    public float attackCooldown = 180f; // used to count how long should wait before attacking again
+    public float playerNotFoundFor; // track how long plr not found for
 
     // States
     public float sightRange, attackRange;
@@ -63,35 +66,55 @@ public class Wendigo : MonoBehaviour
         {
             fuses = fc.fusesInserted;
         }
+
+        // set is stalking to false when found 2/5 parts
+        if (fuses >= 2 && !foundFuses)
+        {
+            foundFuses = true; // set so when it loops back wendigo can stalk again
+            isStalking = false; // only set once, perhaps have another bool?
+        }
+
+        else if (fuses == 3) attackCooldown = 120f;
+        else if (fuses == 4) attackCooldown = 100f;
+        else if (fuses == 5) attackCooldown = 60f;
+
         // check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         playerInRunAwayRange = Physics.CheckSphere(transform.position, stalkRunAway, whatIsPlayer);
 
-        // stalk player before messing with them
-        if (isStalking) Stalking(true);
+        // keep track for how long the player is not found
+        if (!playerInSightRange) playerNotFoundFor += Time.deltaTime;
+        else playerNotFoundFor = 0;
 
-        // set is stalking to false when found 2/5 parts
-        if (fuses >= 2)
+        if (health > 0)
         {
-            isStalking = false;
-        }
+            // teleport near player if not found for 120 sec after no logner stalking
+            if (playerNotFoundFor > 120 && !isStalking)
+            {
+                playerNotFoundFor = 0;
+                isReadyToTeleport = true;
+                walkPointSet = false;
+                Stalking(true);
+            }
 
-        else
-        {
-            if (!playerInSightRange && !playerInAttackRange) Patroling();
-            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-            if (playerInAttackRange && playerInSightRange) AttackPlayer();
-        }
+            // stalk player before messing with them
+            else if (isStalking) Stalking(true);
 
-        
+            else
+            {
+                if (!playerInSightRange && !playerInAttackRange) Patroling();
+                if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+                if (playerInAttackRange && playerInSightRange) AttackPlayer();
+            }
+        }
     }
 
     private void Stalking(bool comingFromMain)
     {
         if (!isRunningAway)
         {
-            setAnim("idle");
+            if (health > 0) setAnim("idle");
 
             // continuously look at player and do not accoutn for x axis
             //var rotation = Quaternion.LookRotation(player.transform.position - transform.position);
@@ -152,8 +175,8 @@ public class Wendigo : MonoBehaviour
         // if player gets within stalkRange, choose a point away from player
         if (playerInRunAwayRange && !isRunningAway)
         {
-            CancelInvoke();  // need to cancel invoke so it doesn't tp away while running
-            setAnim("run");
+            //CancelInvoke();  // need to cancel invoke so it doesn't tp away while running
+            if (health > 0) setAnim("run");
 
             // tell rest of code it is running away now
             isRunningAway = true;
@@ -216,7 +239,7 @@ public class Wendigo : MonoBehaviour
     private void Patroling()
     {
         Debug.Log("patroling");
-        setAnim("run");
+        if (health > 0) setAnim("run");
 
         if (!walkPointSet) SearchWalkPoint();
 
@@ -250,14 +273,14 @@ public class Wendigo : MonoBehaviour
 
     private void ChasePlayer()
     {
-        setAnim("run");
+        if (health > 0) setAnim("run");
 
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
-        setAnim("attack");
+        if (health > 0) setAnim("attack");
 
         // make sure enemy doesn't move
         agent.SetDestination(transform.position);
@@ -270,8 +293,15 @@ public class Wendigo : MonoBehaviour
             // attack code here (actually its now in deal damage called by anim event :P)
             
             alreadyAttacked = true;
+            Invoke(nameof(ResetStalking), attackCooldown);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+    }
+
+    private void ResetStalking()
+    {
+        isReadyToTeleport = false;
+        isStalking = false;
     }
 
     private void DealDamage()
@@ -284,14 +314,29 @@ public class Wendigo : MonoBehaviour
         alreadyAttacked = false;
 
         // run away after dealing damage
+        isStalking = true;
         Stalking(false);
+    }
+
+    void OnTriggerEnter (Collider other) 
+    {
+        if (other.gameObject.tag == "Bullet" ) 
+        {
+            //Destroy(gameObject);
+            TakeDamage(10);
+        }
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
 
-        if (health <= 0) Invoke(nameof(Destroy), 0.5f);
+        if (health <= 0) 
+        {
+            agent.SetDestination(gameObject.transform.position);
+            Invoke(nameof(DestroyEnemy), 5.5f);
+            setAnim("dead");
+        }
     }
 
     private void DestroyEnemy()
@@ -304,6 +349,7 @@ public class Wendigo : MonoBehaviour
         anim.SetBool("attack", false);
         anim.SetBool("run", false);
         anim.SetBool("idle", false);
+        anim.SetBool("dead", false);
 
         anim.SetBool(name, true);
     }
