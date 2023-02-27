@@ -74,9 +74,9 @@ public class Wendigo : MonoBehaviour
             isStalking = false; // only set once, perhaps have another bool?
         }
 
-        else if (fuses == 3) attackCooldown = 120f;
-        else if (fuses == 4) attackCooldown = 100f;
-        else if (fuses == 5) attackCooldown = 60f;
+        else if (fuses == 3) attackCooldown = 45;
+        else if (fuses == 4) attackCooldown = 20;
+        else if (fuses == 5) attackCooldown = 0;
 
         // check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -293,7 +293,7 @@ public class Wendigo : MonoBehaviour
             // attack code here (actually its now in deal damage called by anim event :P)
             
             alreadyAttacked = true;
-            Invoke(nameof(ResetStalking), attackCooldown);
+            if (attackCooldown != 0) Invoke(nameof(ResetStalking), attackCooldown);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
